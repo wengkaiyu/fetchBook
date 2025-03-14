@@ -52,6 +52,7 @@ def get_chapters(novel_name, chapter_links):
         content = get_chapter_content(link)
         full_text = f"\n\n# {title}\n\n{content}\n"
         chapters.append((title, full_text))
+    return chapters
 
 def create_epub(novel_name, chapters, author="Unknown"):
     """
@@ -189,5 +190,5 @@ if __name__ == "__main__":
     chapter_links = get_chapter_links(base_url)
 
     # 保存章节内容
-    chapters = get_chapters(novel_name, chapter_links[-10:])
+    chapters = get_chapters(novel_name, chapter_links[-100:])
     create_epub(novel_name, chapters, author)
