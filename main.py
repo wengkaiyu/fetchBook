@@ -189,5 +189,5 @@ if __name__ == "__main__":
     chapter_links = get_chapter_links(base_url)
 
     # 保存章节内容
-    chapters = get_chapters(novel_name, chapter_links)
+    chapters = get_chapters(novel_name, chapter_links[-10:])
     create_epub(novel_name, chapters, author)
