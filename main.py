@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import zipfile
 import os
+import sys
 
 # 定义请求头，模拟浏览器访问
 headers = {
@@ -182,8 +183,13 @@ p {
     print(f"EPUB 文件已生成：{epub_path}")
 
 if __name__ == "__main__":
-    novel_name = "八零年代"
-    base_url = "https://www.ipaoshubaxs.com/122248/"  # 替换为实际的小说目录页面
+    # novel_name = "八零年代"
+    # base_url = "https://www.ipaoshubaxs.com/122248/"  # 替换为实际的小说目录页面
+    novel_name = sys.argv[1]
+    base_url = sys.argv[2]
+    print(novel_name)
+    print(base_url)
+
     author = "网络小说作家"
 
     # 获取章节链接和标题
