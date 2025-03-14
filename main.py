@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import zipfile
+import os
 
 # 定义请求头，模拟浏览器访问
 headers = {
