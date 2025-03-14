@@ -41,7 +41,7 @@ def get_chapter_content(chapter_url):
     soup = BeautifulSoup(response.text, 'lxml')
 
     # 提取章节内容（根据实际网页结构调整选择器）
-    content = soup.find('div', id='content').text.strip()
+    content = soup.find('div', id='content').get_text(separator='\n')
     return content
 
 def get_chapters(novel_name, chapter_links):
