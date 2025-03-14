@@ -33,10 +33,11 @@ jobs:
           
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: python3 main.py
+        run: python3 main.py 八零年代 https://www.ipaoshubaxs.com/122248/
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: python-generated-file
+          path: ${{ github.workspace }}/八零年代.txt
