@@ -188,6 +188,7 @@ if __name__ == "__main__":
     # base_url = "https://www.ipaoshubaxs.com/122248/"  # 替换为实际的小说目录页面
     novel_name = sys.argv[1]
     base_url = sys.argv[2]
+    count = int(sys.argv[3])
     print(novel_name)
     print(base_url)
 
@@ -197,5 +198,5 @@ if __name__ == "__main__":
     chapter_links = get_chapter_links(base_url)
 
     # 保存章节内容
-    chapters = get_chapters(novel_name, chapter_links[-100:])
+    chapters = get_chapters(novel_name, chapter_links[-count:])
     create_epub(novel_name, chapters, author)
