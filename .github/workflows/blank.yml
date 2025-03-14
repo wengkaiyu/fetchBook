@@ -37,7 +37,7 @@ jobs:
 
 
       - name: Upload Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: python-generated-file
-          path: ${{ github.workspace }}/八零年代.txt
+          path: 八零年代.txt
