@@ -40,4 +40,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: python-generated-file
-          path: 八零年代.txt
+          path: 八零年代.epub
