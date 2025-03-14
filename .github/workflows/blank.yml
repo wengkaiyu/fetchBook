@@ -33,7 +33,7 @@ jobs:
           
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run: python3 main.py 八零年代 https://www.ipaoshubaxs.com/122248/
+        run: python3 main.py 八零年代 https://www.ipaoshubaxs.com/122248/ 100
 
 
       - name: Upload Artifact
