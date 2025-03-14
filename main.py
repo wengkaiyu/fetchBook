@@ -169,7 +169,7 @@ p {
 
     # 打包成 epub 文件
     epub_path = f"{novel_name}.epub"
-    epub_path = os.path.join(os.environ['GITHUB_WORKSPACE'], epub_path)
+    # epub_path = os.path.join(os.environ['GITHUB_WORKSPACE'], epub_path)
     with zipfile.ZipFile(epub_path, "w") as epub:
         # 遍历临时目录中的所有文件
         for root, dirs, files in os.walk(temp_dir):
