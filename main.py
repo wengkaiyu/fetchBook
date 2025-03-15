@@ -238,6 +238,7 @@ if __name__ == "__main__":
 
     generator = EpubGenerator(novel_name, author)
     generator.files = []
+    chapters_toc = []
     # 保存章节内容
     chapters = get_chapters(novel_name, chapter_links[-count:])
 
@@ -245,5 +246,7 @@ if __name__ == "__main__":
         file_name = f"chapter{index}.xhtml"
         generate_html_content(title, content, file_name)
         generator.files.append(file_name)
+        chapters_toc.append({"title": title, "file": file_name})
 
+    generate_toc(chapters_toc)
     generator.create_epub(f"{novel_name}.epub")
