@@ -250,5 +250,6 @@ if __name__ == "__main__":
         generator.files.append(file_name)
         chapters_toc.append({"title": title, "file": file_name})
     print('生成目录')
+    generator.files.append("toc.xhtml")
     generate_toc(chapters_toc)
     generator.create_epub(f"{novel_name}.epub")
