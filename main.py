@@ -200,6 +200,7 @@ def generate_html_content(chapter_title, content, output_filename):
         f.write(html_content)
 
 def generate_toc(chapters):
+    print(chapters)
     toc_content = '''<!DOCTYPE html>
     <html xmlns="http://www.w3.org/1999/xhtml">
         <head>
@@ -247,6 +248,6 @@ if __name__ == "__main__":
         generate_html_content(title, content, file_name)
         generator.files.append(file_name)
         chapters_toc.append({"title": title, "file": file_name})
-
+    print('生成目录')
     generate_toc(chapters_toc)
     generator.create_epub(f"{novel_name}.epub")
