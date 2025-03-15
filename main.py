@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 import zipfile
 import os
 import sys
+from generator import EpubGenerator
 
 # 定义请求头，模拟浏览器访问
 headers = {
@@ -183,6 +184,44 @@ p {
     shutil.rmtree(temp_dir)
     print(f"EPUB 文件已生成：{epub_path}")
 
+def generate_html_content(chapter_title, content, output_filename):
+    html_content = f'''<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+            <title>{chapter_title}</title>
+            <meta charset="UTF-8"/>
+        </head>
+        <body>
+            <h1>{chapter_title}</h1>
+            <p>{content}</p>
+        </body>
+    </html>'''
+    with open(output_filename, 'w', encoding='utf-8') as f:
+        f.write(html_content)
+
+def generate_toc(chapters):
+    toc_content = '''<!DOCTYPE html>
+    <html xmlns="http://www.w3.org/1999/xhtml">
+        <head>
+            <title>Table of Contents</title>
+            <meta charset="UTF-8"/>
+        </head>
+        <body>
+            <nav epub:type="toc">
+                <ol>'''
+    for chapter in chapters:
+        toc_content += f'''<li>
+                <a href="{chapter['file']}">{chapter['title']}</a>
+            </li>'''
+    toc_content += '''</ol>
+            </nav>
+        </body>
+    </html>'''
+    with open("toc.xhtml", 'w', encoding='utf-8') as f:
+        f.write(toc_content)
+
+
+
 if __name__ == "__main__":
     # novel_name = "八零年代"
     # base_url = "https://www.ipaoshubaxs.com/122248/"  # 替换为实际的小说目录页面
@@ -197,6 +236,14 @@ if __name__ == "__main__":
     # 获取章节链接和标题
     chapter_links = get_chapter_links(base_url)
 
+    generator = EpubGenerator(novel_name, author)
+    generator.files = []
     # 保存章节内容
     chapters = get_chapters(novel_name, chapter_links[-count:])
-    create_epub(novel_name, chapters, author)
+
+    for index, (title, content) in enumerate(chapters, 1):
+        file_name = f"chapter{index}.xhtml"
+        generate_html_content(title, content, file_name)
+        generator.append(file_name)
+
+    generator.create_epub(f"{novel_name}.epub")
