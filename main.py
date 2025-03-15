@@ -244,6 +244,6 @@ if __name__ == "__main__":
     for index, (title, content) in enumerate(chapters, 1):
         file_name = f"chapter{index}.xhtml"
         generate_html_content(title, content, file_name)
-        generator.append(file_name)
+        generator.files.append(file_name)
 
     generator.create_epub(f"{novel_name}.epub")
