@@ -278,4 +278,4 @@ if __name__ == "__main__":
     # 保存章节内容
     chapters = get_chapters(novel_name, chapter_links[-count:])
 
-    create_epub_book(title, author, chapters)
+    create_epub_book(novel_name, author, chapters)
