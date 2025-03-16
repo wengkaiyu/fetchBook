@@ -224,23 +224,25 @@ def generate_toc(chapters):
     with open("toc.xhtml", 'w', encoding='utf-8') as f:
         f.write(toc_content)
 
-def create_epub_book(title, author, chapters):
+def create_epub_book(novel_name, author, chapters):
     # Create EPUB book
     book = epub.EpubBook()
 
     # Set metadata
     book.set_identifier('id123456')
-    book.set_title(title)
+    book.set_title(novel_name)
     book.set_language('zh')
     book.add_author(author)
     book.toc=[]
+    book.spine = ['nav']
 
     for index, (title, content) in enumerate(chapters, 1):
         file_name = f"chap_{index}.xhtml"
         chapter = epub.EpubHtml(title, file_name, lang='zh')
         chapter.content = content
         book.add_item(chapter)
-        book.toc.append(epub.Link(file_name, title, content))
+        book.toc.append(epub.Link(file_name, title, f"chap_{index}"))
+        book.spine.append(chapter)
 
 
     # Add default NCX and Nav file
