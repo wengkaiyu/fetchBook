@@ -34,7 +34,7 @@ jobs:
           
       # Runs a single command using the runners shell
       - name: create epub
-        run: ｜
+        run: |
           python3 main.py 八零年代 https://www.ipaoshubaxs.com/122248/ 10
           python3 main.py 重生权势巅峰 https://www.ipaoshubaxs.com/130087/ 10
 
@@ -43,5 +43,7 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: python-generated-file
-          path:  八零年代.epub
+          path: |
+            八零年代.epub
+            重生权势巅峰.epub
 
