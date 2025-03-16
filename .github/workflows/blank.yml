@@ -30,6 +30,7 @@ jobs:
           pip install requests
           pip install lxml
           pip install beautifulsoup4
+          pip install EbookLib
           
       # Runs a single command using the runners shell
       - name: Run a one-line script

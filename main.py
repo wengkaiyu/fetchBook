@@ -4,6 +4,8 @@ import zipfile
 import os
 import sys
 from generator import EpubGenerator
+from ebooklib import epub
+import os
 
 # 定义请求头，模拟浏览器访问
 headers = {
@@ -222,7 +224,42 @@ def generate_toc(chapters):
     with open("toc.xhtml", 'w', encoding='utf-8') as f:
         f.write(toc_content)
 
+def create_epub_book(title, author, chapters):
+    # Create EPUB book
+    book = epub.EpubBook()
 
+    # Set metadata
+    book.set_identifier('id123456')
+    book.set_title(title)
+    book.set_language('zh')
+    book.add_author(author)
+    book.toc=[]
+
+    for index, (title, content) in enumerate(chapters, 1):
+        file_name = f"chap_{index}.xhtml"
+        chapter = epub.EpubHtml(title, file_name, lang='zh')
+        chapter.content = content
+        book.add_item(chapter)
+        book.toc.append(epub.Link(file_name, title, content))
+
+
+    # Add default NCX and Nav file
+    book.add_item(epub.EpubNcx())
+    book.add_item(epub.EpubNav())
+
+    # Define CSS style
+    style = 'BODY {color: white;}'
+    nav_css = epub.EpubItem(uid="style_nav",
+                           file_name="style/nav.css",
+                           media_type="text/css",
+                           content=style)
+    book.add_item(nav_css)
+
+    # Create spine
+    book.spine = ['nav', chapter]
+
+    # Create EPUB file
+    epub.write_epub(f'{title}.epub', book)
 
 if __name__ == "__main__":
     # novel_name = "八零年代"
@@ -238,18 +275,7 @@ if __name__ == "__main__":
     # 获取章节链接和标题
     chapter_links = get_chapter_links(base_url)
 
-    generator = EpubGenerator(novel_name, author)
-    generator.files = []
-    chapters_toc = []
     # 保存章节内容
     chapters = get_chapters(novel_name, chapter_links[-count:])
 
-    for index, (title, content) in enumerate(chapters, 1):
-        file_name = f"chapter{index}.xhtml"
-        generate_html_content(title, content, file_name)
-        generator.files.append(file_name)
-        chapters_toc.append({"title": title, "file": file_name})
-    print('生成目录')
-    generator.files.append("toc.xhtml")
-    generate_toc(chapters_toc)
-    generator.create_epub(f"{novel_name}.epub")
+    create_epub_book(title, author, chapters)
