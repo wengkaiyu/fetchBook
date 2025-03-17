@@ -257,11 +257,8 @@ def create_epub_book(novel_name, author, chapters):
                            content=style)
     book.add_item(nav_css)
 
-    # Create spine
-    book.spine = ['nav', chapter]
-
     # Create EPUB file
-    epub.write_epub(f'{title}.epub', book)
+    epub.write_epub(f'{novel_name}.epub', book)
 
 if __name__ == "__main__":
     # novel_name = "八零年代"
